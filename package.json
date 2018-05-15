@@ -1,11 +1,12 @@
 {
-  "name": "vue-print-components",
-  "version": "0.1.0",
-  "private": true,
+  "name": "vue-print-demo",
+  "version": "1.0.0",
   "scripts": {
+    "start": "cd dist/ && serve",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "deploy": "now --public && now alias"
   },
   "dependencies": {
     "portal-vue": "^1.3.0",
@@ -18,6 +19,7 @@
     "@vue/cli-service": "^3.0.0-beta.10",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.0.1",
+    "serve": "^6.5.7",
     "vue-template-compiler": "^2.5.13"
   },
   "babel": {
@@ -41,5 +43,9 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "now": {
+    "name": "vue-print-demo",
+    "alias": "vue-print-demo"
+  }
 }

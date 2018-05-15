@@ -8,8 +8,9 @@
         <button @click="$emit('print-section')">Print Payments</button>
         <portal to="print-container" :disabled="isPrintPortalDisabled">
           <p>
-            I want to print this section.
+            I want to print this section, which is part of the component. Only the content inside this rightbar component
           </p>
+          <!-- // The only reason I made this list to repeat is to check if the content split in two pages or more! -->
           <div v-for="i in repeatTimes" :key="i">
             <p>
               <strong>{{ i }}:  You should be able to see this message  {{ repeatTimes }} times</strong>

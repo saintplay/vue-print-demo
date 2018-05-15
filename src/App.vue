@@ -8,23 +8,27 @@
       />
     </div>
     <div v-show="printMode">
-      <div class="print-hidden">
-        <button @click="print">Print</button>
-        <button @click="closePrintMode">Close Print View</button>
+      <the-print-banner
+        @print="print"
+        @close-print-mode="closePrintMode"
+      />
+      <div class="screen-hidden">
+        <portal-target name="print-container" />
       </div>
-      <portal-target name="print-container" />
     </div>
   </div>
 </template>
 
 <script>
 
+import ThePrintBanner from './components/ThePrintBanner'
 import TheNavbar from './components/TheNavbar'
 
 export default {
   name: 'app',
   components: {
-    TheNavbar
+    TheNavbar,
+    ThePrintBanner
   },
   data () {
     return {
@@ -37,6 +41,12 @@ export default {
     },
     onPrintSection () {
       this.printMode = true
+      // Use nextTick to ensure dom nodes are updated!
+      this.$nextTick(()  => {
+        this.$nextTick(()  => {
+          this.print()
+        })
+      })
     },
     closePrintMode () {
       this.printMode = false
@@ -46,15 +56,20 @@ export default {
 </script>
 
 <style lang="scss">
+/*
+  !important statments are just optional,
+  but you know, since these are utility classes makes sense to apply it
+*/
+
 .print-hidden {
   @media print {
-    display: none;
+    display: none !important;
   }
 }
 
 .screen-hidden {
   @media screen {
-    display: none;
+    display: none !important;
   }
 }
 
