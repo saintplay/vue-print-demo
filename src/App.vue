@@ -1,28 +1,66 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div v-show="!printMode">
+      <the-navbar />
+      <router-view
+        :print-mode="printMode"
+        @print-section="onPrintSection"
+      />
+    </div>
+    <div v-show="printMode">
+      <div class="print-hidden">
+        <button @click="print">Print</button>
+        <button @click="closePrintMode">Close Print View</button>
+      </div>
+      <portal-target name="print-container" />
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
+import TheNavbar from './components/TheNavbar'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    TheNavbar
+  },
+  data () {
+    return {
+      printMode: false
+    }
+  },
+  methods: {
+    print() {
+      window.print()
+    },
+    onPrintSection () {
+      this.printMode = true
+    },
+    closePrintMode () {
+      this.printMode = false
+    }
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style lang="scss">
+.print-hidden {
+  @media print {
+    display: none;
+  }
+}
+
+.screen-hidden {
+  @media screen {
+    display: none;
+  }
+}
+
+.print-red-parragraph {
+  @media print {
+    color: tomato;
+  }
 }
 </style>
